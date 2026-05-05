@@ -151,18 +151,7 @@ export function SignupForm() {
           </div>
         </div>
 
-        {/* CSS animations */}
-        
-
-          @keyframes grid-scroll {
-            0% {
-              background-position: 0 0, 0 0;
-            }
-            100% {
-              background-position: 60px 60px, 60px 60px;
-            }
-          }
-
+        <style>{`
           @keyframes pulse-glow {
             0%, 100% {
               transform: translate(-50%, -50%) scale(1);

@@ -4,6 +4,8 @@ import Link from "next/link";
 import { useState } from "react";
 
 export default function DashboardPage() {
+  const [isInterviewPopupOpen, setIsInterviewPopupOpen] = useState(false);
+
   const hour = new Date().getHours();
   const greeting = hour < 12 ? "Good morning" : hour < 18 ? "Good afternoon" : "Good evening";
   const userName = "John"; // Would come from user profile in full implementation
@@ -150,8 +152,11 @@ return (
               <span className="rounded-full border border-[var(--line)]/70 bg-white/70 px-3 py-1 shadow-sm dark:bg-black/20">AI feedback ready</span>
             </div>
           </div>
-          <Link
-            href="/app/interviews/call"
+          <button
+            type="button"
+            aria-haspopup="dialog"
+            aria-expanded={isInterviewPopupOpen}
+            onClick={() => setIsInterviewPopupOpen(true)}
             className="group relative inline-flex h-12 sm:h-14 items-center justify-center overflow-hidden rounded-xl bg-gradient-to-r from-[var(--accent)] via-blue-600 to-[var(--accent-2)] px-6 sm:px-8 text-sm sm:text-base font-semibold text-white shadow-lg shadow-[var(--accent)]/30 transition-all duration-300 hover:scale-[1.03] hover:shadow-xl hover:shadow-[var(--accent)]/40"
           >
             <span className="absolute inset-0 -skew-x-12 bg-gradient-to-r from-transparent via-white to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-20" />
@@ -159,7 +164,7 @@ return (
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v2a3 3 0 01-3 3z" />
             </svg>
             <span className="relative z-10">Start Practice</span>
-          </Link>
+          </button>
         </div>
 
         <div className="glass-card rounded-2xl border border-white/50 bg-gradient-to-r from-[var(--accent)]/10 via-blue-500/5 to-[var(--accent-2)]/10 p-5 backdrop-blur-md dark:border-white/10">
@@ -462,6 +467,149 @@ return (
       </div>
 
       </div>
+
+      {isInterviewPopupOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center px-4 py-6">
+          <button
+            type="button"
+            aria-label="Close interview popup"
+            className="absolute inset-0 bg-slate-950/55 backdrop-blur-sm"
+            onClick={() => setIsInterviewPopupOpen(false)}
+          />
+
+          <div className="relative w-full max-w-2xl overflow-hidden rounded-3xl border border-white/50 bg-white/80 p-5 shadow-2xl shadow-slate-950/20 backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/75 sm:p-6">
+            <div className="absolute -left-16 -top-16 h-40 w-40 rounded-full bg-[radial-gradient(circle,rgba(14,102,255,0.28),transparent_70%)] blur-3xl" />
+            <div className="absolute -bottom-20 -right-10 h-48 w-48 rounded-full bg-[radial-gradient(circle,rgba(0,197,164,0.2),transparent_70%)] blur-3xl" />
+
+            <div className="relative flex items-start justify-between gap-4 border-b border-[var(--line)]/70 pb-5">
+              <div>
+                <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[var(--accent)]">Interview pop-up</p>
+                <h2 className="mt-2 text-2xl font-semibold tracking-tight text-[var(--foreground)] sm:text-3xl">
+                  Ready to start your mock interview?
+                </h2>
+                <p className="mt-2 max-w-xl text-sm leading-6 text-muted sm:text-base">
+                  Meet your AI interviewer, Ava. This keeps the dashboard action clear while showing the interviewer up front.
+                </p>
+              </div>
+
+              <button
+                type="button"
+                aria-label="Dismiss interview popup"
+                className="rounded-full border border-[var(--line)] bg-white/80 p-2 text-[var(--foreground)] transition-colors hover:border-[var(--accent)]/30 hover:bg-[var(--surface-2)] dark:bg-black/20"
+                onClick={() => setIsInterviewPopupOpen(false)}
+              >
+                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+
+            <div className="relative mt-6 grid gap-5 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+              <div className="rounded-3xl border border-[var(--line)]/70 bg-gradient-to-br from-[var(--surface)] via-white to-[var(--surface-2)] p-5 shadow-[0_18px_50px_rgba(15,23,42,0.08)] dark:from-black/30 dark:via-black/20 dark:to-black/35">
+                <div className="flex items-center justify-between">
+                  <div className="inline-flex items-center gap-2 rounded-full border border-[var(--line)] bg-white/70 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-muted dark:bg-black/20">
+                    <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+                    Interviewer live
+                  </div>
+                  <span className="rounded-full border border-[var(--line)] bg-white/70 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-muted dark:bg-black/20">
+                    Sarah Chen
+                  </span>
+                </div>
+
+                <div className="mt-8 flex justify-center">
+                  <div className="relative">
+                    {/* Glow background */}
+                    <div className="absolute -inset-6 rounded-full bg-gradient-to-br from-[var(--accent)]/40 via-blue-500/30 to-[var(--accent-2)]/40 opacity-60 blur-3xl" />
+                    
+                    {/* Outer ring with gradient */}
+                    <div className="absolute inset-0 rounded-full border-2 border-transparent bg-gradient-to-br from-[var(--accent)]/60 to-[var(--accent-2)]/60 p-1">
+                      <div className="absolute inset-0 rounded-full bg-gradient-to-br from-[var(--surface)] via-white to-[var(--surface-2)] dark:from-black/40 dark:via-black/30 dark:to-black/50" />
+                    </div>
+                    
+                    {/* Main avatar circle */}
+                    <div className="relative h-44 w-44 flex flex-col items-center justify-center rounded-full border border-white/50 bg-gradient-to-br from-blue-50 to-cyan-50 shadow-2xl shadow-[var(--accent)]/25 dark:from-blue-950/60 dark:to-cyan-950/40">
+                      {/* Decorative top accent */}
+                      <div className="absolute -top-1 left-1/2 h-8 w-8 -translate-x-1/2 rounded-full bg-gradient-to-b from-[var(--accent)] to-blue-500 blur-sm opacity-40" />
+                      
+                      {/* Avatar content */}
+                      <div className="relative z-10 flex flex-col items-center gap-2">
+                        {/* Initials circle */}
+                        <div className="flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-[var(--accent)] to-blue-600 shadow-lg shadow-[var(--accent)]/40">
+                          <span className="text-4xl font-bold text-white">SC</span>
+                        </div>
+                        
+                        {/* Name */}
+                        <div className="text-center">
+                          <p className="text-sm font-bold text-[var(--foreground)]">Sarah Chen</p>
+                          <p className="text-[11px] text-muted font-medium">Lead Interviewer</p>
+                        </div>
+                      </div>
+                      
+                      {/* Subtle pattern overlay */}
+                      <div className="absolute inset-0 rounded-full opacity-5" style={{
+                        backgroundImage: 'radial-gradient(circle at 30% 30%, currentColor 1px, transparent 1px)',
+                        backgroundSize: '20px 20px'
+                      }} />
+                    </div>
+                    
+                    {/* Status badge */}
+                    <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5 rounded-full bg-gradient-to-r from-emerald-400 to-emerald-500 px-4 py-1.5 shadow-lg shadow-emerald-500/30">
+                      <span className="h-2 w-2 rounded-full bg-white animate-pulse" />
+                      <span className="text-xs font-semibold text-white">Ready to Interview</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-5 space-y-3 rounded-2xl border border-[var(--line)]/70 bg-white/70 p-4 dark:bg-black/20">
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="font-medium text-[var(--foreground)]">Session type</span>
+                    <span className="text-muted">Mock interview</span>
+                  </div>
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="font-medium text-[var(--foreground)]">Style</span>
+                    <span className="text-muted">Calm, focused, real-time feedback</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="space-y-4 rounded-3xl border border-[var(--line)]/70 bg-white/70 p-5 dark:bg-black/20">
+                <div className="flex items-center gap-3">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-[var(--accent)] to-[var(--accent-2)] text-white shadow-lg shadow-[var(--accent)]/25">
+                    <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v2a3 3 0 01-3 3z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <div className="text-base font-semibold text-[var(--foreground)]">Start with Ava</div>
+                    <div className="text-sm text-muted">Use the same interviewer experience from the home page.</div>
+                  </div>
+                </div>
+
+                <p className="text-sm leading-6 text-muted">
+                  This popup gives the dashboard a cleaner handoff into practice, with the interviewer shown first so the action feels intentional.
+                </p>
+
+                <div className="flex flex-col gap-3 sm:flex-row">
+                  <button
+                    type="button"
+                    onClick={() => setIsInterviewPopupOpen(false)}
+                    className="inline-flex h-11 flex-1 items-center justify-center rounded-xl border border-[var(--line)] bg-white/80 px-4 text-sm font-semibold text-[var(--foreground)] transition-colors hover:border-[var(--line-strong)] hover:bg-[var(--surface-2)] dark:bg-black/20"
+                  >
+                    Cancel
+                  </button>
+                  <Link
+                    href="/app/interviews/call"
+                    className="inline-flex h-11 flex-1 items-center justify-center rounded-xl bg-[var(--accent)] px-4 text-sm font-semibold text-white transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-[var(--accent)]/30"
+                    onClick={() => setIsInterviewPopupOpen(false)}
+                  >
+                    Start interview
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
     </>
   );

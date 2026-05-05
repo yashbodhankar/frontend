@@ -4,6 +4,7 @@ import { CustomCursor } from "@/components/custom-cursor";
 import { ScrollEffects } from "@/components/scroll-effects";
 import { SiteHeader } from "@/components/site-header";
 import { SignupForm } from "@/app/signup/signup-form";
+import { InterviewCta } from "../login/interview-cta";
 
 export default function SignupPage() {
   return (
@@ -73,6 +74,7 @@ export default function SignupPage() {
           </div>
         </div>
       </main>
+      <InterviewCta />
     </div>
   );
 }

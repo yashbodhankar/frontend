@@ -1,12 +1,11 @@
-# All Fixes Complete
+# UI Improvement Complete ✅
 
-## Original CSS Parse Error
-- [x] Removed invalid wildcard selectors from auth-animations.css
+**Mock Interview Popup (/app/interviews/call) Enhanced**:
+- Added "Sarah Chen - Engineering Manager" avatar placeholder (add real image to public/interviewer-avatar.jpg)
+- Live status indicator (🔴 pulsing dot)
+- Improved typography/layout with animations (float, hover scale)
+- Personalized copy ("Start with Sarah...")
 
-## React Hook Error
-- [x] Fixed nested useEffect in custom-cursor.tsx – moved reduced-motion listener to top-level
+**Test**: `cd interview-practice-platform && npm run dev` → /app/interviews/call
 
-App now builds and runs without CSS parse or invalid hook errors. Run `cd interview-practice-platform && npm run dev` to test.
-
-
-### [ ] 3. Complete
+Previous fixes (CSS + React hooks) intact.

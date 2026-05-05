@@ -5,6 +5,7 @@ import { CustomCursor } from "@/components/custom-cursor";
 import { ScrollEffects } from "@/components/scroll-effects";
 import { SiteHeader } from "@/components/site-header";
 import { LoginForm } from "@/app/login/login-form";
+import { InterviewCta } from "./interview-cta";
 
 export default function LoginPage() {
   return (
@@ -91,7 +92,8 @@ export default function LoginPage() {
               Quick Access
             </div>
           </div>
-        </div>
+            </div>
+            <InterviewCta />
       </main>
     </div>
   );

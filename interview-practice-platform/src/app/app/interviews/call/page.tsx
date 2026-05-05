@@ -126,14 +126,26 @@ const endSession = () => {
 
       {!isActive ? (
         <div className="glass-card rounded-2xl p-8 text-center">
-          <div className="w-24 h-24 mx-auto mb-6 rounded-full bg-gradient-to-br from-[var(--accent)] to-[var(--accent-2)] flex items-center justify-center shadow-lg shadow-[var(--accent)]/30">
-            <svg className="w-12 h-12 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v2a3 3 0 01-3 3z" />
-            </svg>
+          <div className="mx-auto mb-6">
+            <div className="relative">
+              <img 
+                src="/interviewer-avatar.jpg" 
+                alt="Sarah Chen, Engineering Manager" 
+                className="w-32 h-32 mx-auto rounded-full object-cover shadow-2xl ring-4 ring-[var(--accent)]/20 animate-float hover:scale-105 transition-transform"
+              />
+              <div className="absolute -bottom-1 -right-1 w-8 h-8 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full flex items-center justify-center text-white text-xs font-bold shadow-lg animate-pulse">
+                🔴
+              </div>
+            </div>
+            <div className="mt-4 space-y-1">
+              <h2 className="text-2xl font-semibold text-[var(--foreground)]">Sarah Chen</h2>
+              <p className="text-lg font-medium text-[var(--accent)]">Engineering Manager</p>
+              <p className="text-sm text-muted/80">Live & ready to interview</p>
+            </div>
           </div>
-          <h2 className="text-2xl font-semibold text-[var(--foreground)] mb-2">Ready to Practice?</h2>
+          <h2 className="text-xl font-semibold text-[var(--foreground)] mb-4 animate-fade-in-up">Ready to start?</h2>
           <p className="text-sm text-muted mb-8 max-w-md mx-auto">
-            Start a mock interview session with our AI interviewer. You'll receive real-time feedback on your answers.
+            Start a mock interview session with Sarah. You'll receive real-time feedback on your answers.
           </p>
           <button
             onClick={startSession}
