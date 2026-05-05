@@ -1,0 +1,924 @@
+/* Performance optimizations */
+.animate-*, 
+.success-*, 
+.icon-entrance, 
+.field-entrance,
+.input-group-animated,
+.social-btn,
+.submit-shimmer,
+.divider-animate,
+.icon-entrance {
+  will-change: transform, opacity;
+}
+
+/* Auth Pages Animations */
+
+/* Fade in up entrance */
+@keyframes fade-in-up {
+
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Fade in scale entrance */
+@keyframes fade-in-scale {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Simple fade in */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Glow pulse for backgrounds */
+@keyframes glow-pulse {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+/* Float animation for background elements */
+@keyframes auth-blob-float {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  33% {
+    transform: translateY(-12px) rotate(2deg);
+  }
+  66% {
+    transform: translateY(-6px) rotate(-1deg);
+  }
+}
+
+/* Input focus pulse ring */
+@keyframes input-focus-ring {
+  0% {
+    box-shadow: 0 0 0 0 rgba(14, 102, 255, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba(14, 102, 255, 0);
+  }
+}
+
+/* Checkbox bounce */
+@keyframes checkbox-bounce {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+
+/* Button shimmer effect */
+@keyframes shimmer-slide {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Field entrance animations */
+@keyframes field-slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Form divider shine */
+@keyframes divider-shine {
+  0%, 100% { transform: translateX(-100%); }
+  50% { transform: translateX(100%); }
+}
+
+/* Jump animation for checkbox */
+@keyframes animate-jump {
+  0% {
+    transform: scale(0) rotate(-45deg);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+/* Shimmer animation */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Bounce subtle animation */
+@keyframes bounce-subtle {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
+}
+
+/* Animation Classes */
+.animate-fade-in-up {
+  animation: fade-in-up 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+.animate-fade-in-scale {
+  animation: fade-in-scale 0.5s ease-out forwards;
+  opacity: 0;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+.animate-glow-pulse {
+  animation: glow-pulse 4s ease-in-out infinite;
+}
+
+.animate-auth-blob {
+  animation: auth-blob-float 8s ease-in-out infinite;
+}
+
+.animate-input-focus {
+  animation: input-focus-ring 0.4s ease-out forwards;
+}
+
+.animate-checkbox-bounce {
+  animation: checkbox-bounce 0.3s ease-out forwards;
+}
+
+.animate-jump {
+  animation: animate-jump 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.animate-shimmer {
+  animation: shimmer 2s infinite;
+  background-size: 200% 100%;
+}
+
+.animate-bounce-subtle {
+  animation: bounce-subtle 2s ease-in-out infinite;
+}
+
+/* Stagger delays */
+.stagger-1 { animation-delay: 50ms; }
+.stagger-2 { animation-delay: 100ms; }
+.stagger-3 { animation-delay: 150ms; }
+.stagger-4 { animation-delay: 200ms; }
+.stagger-5 { animation-delay: 250ms; }
+.stagger-6 { animation-delay: 300ms; }
+.stagger-7 { animation-delay: 350ms; }
+.stagger-8 { animation-delay: 400ms; }
+
+/* Card entrance with perspective */
+.auth-card-entrance {
+  animation: fade-in-scale 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
+  transform-origin: center center;
+}
+
+/* Icon entrance with bounce */
+.icon-entrance {
+  animation: fade-in-up 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  opacity: 0;
+}
+
+/* Field entrance */
+.field-entrance {
+  opacity: 0;
+  transform: translateY(16px);
+  animation: field-slide-up 0.5s ease-out forwards;
+}
+
+/* Input group animated */
+.input-group-animated:focus-within {
+  animation: input-focus-ring 0.4s ease-out;
+}
+
+/* Social button hover */
+.social-btn {
+  transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.social-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 4px 12px rgba(14, 102, 255, 0.15),
+    0 8px 24px rgba(15, 20, 25, 0.08);
+}
+
+/* Submit button with shimmer effect */
+.submit-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.submit-shimmer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.2) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.submit-shimmer:hover::before {
+  opacity: 1;
+  animation: shimmer-slide 1.5s ease-in-out infinite;
+}
+
+/* Password strength bar */
+.strength-bar-animated {
+  transition: all 0.4s ease-out;
+}
+
+/* Divider with shine */
+.divider-animate {
+  position: relative;
+  overflow: hidden;
+}
+
+.divider-animate::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent, var(--line), transparent);
+  transform: translateX(-100%);
+  animation: divider-shine 3s ease-in-out infinite;
+}
+
+/* Link with animated underline */
+.link-animate {
+  position: relative;
+}
+
+.link-animate::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s ease;
+}
+
+.link-animate:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* Input focus glow animation */
+.input-animated-focus {
+  transition: border-color 200ms ease, box-shadow 200ms ease;
+}
+
+.input-animated-focus:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 15%, transparent);
+  animation: input-focus-ring 0.4s ease-out;
+}
+
+/* Checkbox animated */
+.checkbox-animated {
+  transition: all 200ms ease;
+}
+
+.checkbox-animated:checked {
+  animation: checkbox-bounce 0.3s ease-out;
+}
+
+/* Button press effect */
+.btn-press:active {
+  transform: scale(0.97);
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+}
+
+@keyframes scale-up {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+    filter: blur(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes circle-scale {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes draw-checkmark {
+  from {
+    strokeDashoffset: 24;
+    opacity: 0;
+  }
+  to {
+    strokeDashoffset: 0;
+    opacity: 1;
+  }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes progress-bar {
+  from {
+    width: 0%;
+    opacity: 0;
+  }
+  to {
+    width: 100%;
+    opacity: 1;
+  }
+}
+
+@keyframes pulse-dot {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(0.8);
+  }
+}
+
+.animate-progress-bar {
+  animation: progress-bar 2.5s ease-in-out forwards;
+}
+
+.shadow-glow {
+  box-shadow: 0 0 24px rgba(14, 102, 255, 0.6), 0 0 36px rgba(0, 197, 164, 0.25);
+}
+
+.animate-pulse-dot {
+  animation: pulse-dot 1.5s ease-in-out infinite;
+}
+
+.signup-success-overlay {
+  background: rgba(10, 14, 20, 0.95);
+  backdrop-filter: blur(10px);
+}
+
+
+/* Error shake animation */
+@keyframes error-shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-4px); }
+  20%, 40%, 60%, 80% { transform: translateX(4px); }
+}
+
+.error-shake {
+  animation: error-shake 0.5s ease-out;
+}
+
+/* Success checkmark animation */
+@keyframes check-draw {
+  from {
+    stroke-dashoffset: 100;
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    stroke-dashoffset: 0;
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.checkmark-draw {
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  animation: check-draw 0.4s ease-out forwards;
+}
+
+/* Password strength transitions */
+.password-strength-fill {
+  transition: width 0.4s ease-out, background-color 0.3s ease;
+}
+
+/* Background blob animation */
+.auth-bg-blob {
+  transition: transform 8s ease-in-out;
+  animation: auth-blob-float 8s ease-in-out infinite;
+}
+
+/* Title text reveal */
+@keyframes title-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+.title-reveal {
+  animation: title-reveal 0.6s ease-out forwards;
+}
+
+/* Glass card shimmer */
+@keyframes glass-shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.glass-card-shimmer {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: glass-shimmer 3s ease-in-out infinite;
+}
+
+/* ============================================
+   SIGNUP SUCCESS ANIMATION
+   User icon flying + connecting to services
+   ============================================ */
+
+/* User icon appear and pulse */
+@keyframes user-appear {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* User icon pulse when connected */
+@keyframes user-connected {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 30px rgba(0, 197, 164, 0.6);
+  }
+  50% {
+    transform: scale(1.1);
+    box-shadow: 0 0 50px rgba(0, 197, 164, 0.8);
+  }
+}
+
+/* Connection line drawing */
+@keyframes connection-line-draw {
+  0% {
+    stroke-dashoffset: 200;
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}
+
+/* Service icon pop in */
+@keyframes service-pop-in {
+  0% {
+    opacity: 0;
+    transform: scale(0) translateY(20px);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.2) translateY(0);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Sparkle burst effect */
+@keyframes sparkle-burst {
+  0% {
+    opacity: 0;
+    transform: scale(0) rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1) rotate(180deg);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0) rotate(360deg);
+  }
+}
+
+/* Ring expansion */
+@keyframes ring-expand {
+  0% {
+    transform: scale(0.5);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+/* Glow pulse for success */
+@keyframes success-glow-pulse {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(0, 197, 164, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(0, 197, 164, 0.6);
+  }
+}
+
+/* Success checkmark draw */
+@keyframes success-check-draw {
+  0% {
+    stroke-dashoffset: 100;
+    opacity: 0;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}
+
+/* ============================================
+   SUCCESS ANIMATION CLASSES
+   ============================================ */
+
+/* Success overlay container */
+.signup-success-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 20, 25, 0.85);
+  backdrop-filter: blur(8px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  animation: fade-in 0.3s ease-out forwards;
+}
+
+/* Center success container */
+.success-center {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* User icon in center */
+.success-user-icon {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 32px rgba(14, 102, 255, 0.4);
+  animation: user-appear 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  z-index: 10;
+}
+
+.success-user-icon.connected {
+  animation: user-connected 1s ease-in-out 1s infinite;
+}
+
+.success-user-icon svg {
+  width: 40px;
+  height: 40px;
+  color: white;
+}
+
+/* Connection line */
+.success-connection-line {
+  position: absolute;
+  stroke: var(--accent-2);
+  stroke-width: 2;
+  stroke-dasharray: 200;
+  stroke-dashoffset: 200;
+  fill: none;
+  animation: connection-line-draw 0.6s ease-out forwards;
+}
+
+/* Service node */
+.success-service-node {
+  position: absolute;
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  animation: service-pop-in 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.success-service-node svg {
+  width: 28px;
+  height: 28px;
+}
+
+.success-service-node.dashboard {
+  top: -120px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #0e66ff, #00c5a4);
+}
+
+.success-service-node.interviews {
+  top: -60px;
+  right: -80px;
+  background: linear-gradient(135deg, #00c5a4, #ff6a3d);
+}
+
+.success-service-node.profile {
+  top: 60px;
+  right: -60px;
+  background: linear-gradient(135deg, #ff6a3d, #0e66ff);
+}
+
+.success-service-node.analytics {
+  top: 120px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #8b5cf6, #0e66ff);
+}
+
+/* Sparkles container */
+.success-sparkles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.success-sparkle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent-2);
+  animation: sparkle-burst 1s ease-out forwards;
+}
+
+/* Success ring */
+.success-ring {
+  position: absolute;
+  inset: -20px;
+  border: 2px solid var(--accent-2);
+  border-radius: 50%;
+  animation: ring-expand 1s ease-out forwards;
+}
+
+/* Success glow */
+.success-glow {
+  position: absolute;
+  inset: -40px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--accent-2) 0%, transparent 70%);
+  opacity: 0.3;
+  animation: success-glow-pulse 1s ease-in-out infinite;
+}
+
+/* Service icons delay */
+.success-service-node.stagger-1 { animation-delay: 0.4s; }
+.success-service-node.stagger-2 { animation-delay: 0.55s; }
+.success-service-node.stagger-3 { animation-delay: 0.7s; }
+.success-service-node.stagger-4 { animation-delay: 0.85s; }
+
+/* Connection lines delay */
+.success-connection-line.stagger-1 { animation-delay: 0.2s; }
+.success-connection-line.stagger-2 { animation-delay: 0.3s; }
+.success-connection-line.stagger-3 { animation-delay: 0.4s; }
+.success-connection-line.stagger-4 { animation-delay: 0.5s; }
+
+/* Success message */
+.success-message {
+  position: absolute;
+  bottom: -80px;
+  text-align: center;
+  animation: fade-in-up 0.5s ease-out 0.8s forwards;
+  opacity: 0;
+}
+
+.success-message h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 0.5rem;
+}
+
+.success-message p {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Connecting dots animation */
+.connecting-dots {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.connecting-dots span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent-2);
+  animation: bounce-subtle 1s ease-in-out infinite;
+}
+
+.connecting-dots span:nth-child(2) { animation-delay: 0.15s; }
+.connecting-dots span:nth-child(3) { animation-delay: 0.3s; }
+
+/* ============================================
+   FULL SCREEN SUCCESS ANIMATION
+   ============================================ */
+
+/* Bounce in animation for user icon */
+@keyframes bounce-in {
+  0% {
+    opacity: 0;
+    transform: scale(0) translateY(30px);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1) translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.animate-bounce-in {
+  animation: bounce-in 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  opacity: 0;
+}
+
+/* Ring expand animation */
+@keyframes ring-expand-anim {
+  0% {
+    transform: scale(0.8);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+}
+
+.animate-ring-expand {
+  animation: ring-expand-anim 2s ease-out infinite;
+}
+
+/* Blob float animation */
+@keyframes blob-float {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-20px) scale(1.1);
+  }
+}
+
+/* Service pop in animation */
+@keyframes service-pop {
+  0% {
+    opacity: 0;
+    transform: scale(0.5) translateY(20px);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.1) translateY(0);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.animate-service-pop {
+  animation: service-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  opacity: 0;
+}
+
+/* Check pop animation */
+@keyframes check-pop {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.3);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-check-pop {
+  animation: check-pop 0.3s ease-out forwards;
+  opacity: 0;
+}
+
+/* Progress bar animation */
+@keyframes progress-anim {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+.animate-progress {
+  animation: progress-anim 2s ease-in-out forwards;
+}

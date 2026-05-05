@@ -1,9 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(node -e ' *)",
-      "PowerShell(head -50)",
-      "PowerShell(cd D:\\\\frontend; npm create vite@latest . -- --template react-ts --yes 2>&1)"
-    ]
-  }
-}
