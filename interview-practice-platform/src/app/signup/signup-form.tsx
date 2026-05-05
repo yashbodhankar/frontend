@@ -14,10 +14,15 @@ export function SignupForm() {
   const [agreeTerms, setAgreeTerms] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccessAnimation, setShowSuccessAnimation] = useState(false);
+  const [successStage, setSuccessStage] = useState<"zoom" | "network" | "verify" | "success">("zoom");
   const [error, setError] = useState("");
   const [nameFocused, setNameFocused] = useState(false);
   const [emailFocused, setEmailFocused] = useState(false);
   const [passwordFocused, setPasswordFocused] = useState(false);
+  const isZoomStage = successStage === "zoom";
+  const isNetworkStage = successStage === "network";
+  const isVerifyStage = successStage === "verify";
+  const isSuccessStage = successStage === "success";
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -42,112 +47,64 @@ export function SignupForm() {
 
     // Show success animation before redirecting
     setShowSuccessAnimation(true);
+    setSuccessStage("zoom");
 
     // Mock signup: accept anything and set a cookie.
     setMockAuthCookie();
 
-// Wait for animation to complete, then redirect (3 seconds for full effect)
+    window.setTimeout(() => setSuccessStage("network"), 1200);
+    window.setTimeout(() => setSuccessStage("verify"), 3200);
+    window.setTimeout(() => setSuccessStage("success"), 5400);
+
+    // Wait for animation to complete, then redirect.
     setTimeout(() => {
       router.replace("/app/resume-upload");
-    }, 3000);
+    }, 8200);
   }
 
   // ==================== SUCCESS ANIMATION ====================
   if (showSuccessAnimation) {
     return (
-      <div className="fixed inset-0 z-[100] flex items-center justify-center overflow-hidden signup-success-overlay animate-fade-in">
+      <div className="fixed inset-0 z-[100] overflow-hidden signup-success-overlay animate-fade-in">
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.98),rgba(247,250,255,0.96)_42%,rgba(236,244,255,0.92))]" />
+        <div className="absolute inset-0 opacity-14 signup-grid signup-grid-light" />
+        <div className="absolute inset-0 signup-vignette signup-vignette-light" />
 
-        
-        {/* Animated grid background */}
-        <div className="absolute inset-0 animate-pulse-glow bg-gradient-to-br from-blue-900/90 via-black/95 to-teal-900/90" />
+        <div className="absolute inset-0 pointer-events-none">
+          <div className={`signup-flow-camera ${successStage === "zoom" ? "is-zooming" : ""} ${successStage === "network" ? "is-network" : ""} ${successStage === "verify" ? "is-verify" : ""} ${successStage === "success" ? "is-success" : ""}`}>
+            <div className={`signup-network ${successStage === "network" || successStage === "verify" || successStage === "success" ? "is-live" : ""}`}>
+              <div className="signup-network-line signup-network-line-a" />
+              <div className="signup-network-line signup-network-line-b" />
+              <div className="signup-network-line signup-network-line-c" />
+              <div className="signup-network-line signup-network-line-d" />
+              <div className="signup-node signup-node-core" />
+              <div className="signup-node signup-node-a" />
+              <div className="signup-node signup-node-b" />
+              <div className="signup-node signup-node-c" />
+              <div className="signup-node signup-node-d" />
 
+              <div className="signup-particle signup-particle-1" />
+              <div className="signup-particle signup-particle-2" />
+              <div className="signup-particle signup-particle-3" />
+              <div className="signup-particle signup-particle-4" />
 
-        {/* Main Content */}
-        <div className="relative z-10 flex flex-col items-center justify-center animate-scale-up">
+              <div className="signup-lock signup-lock-left">🔒</div>
+              <div className="signup-lock signup-lock-right">🔐</div>
 
-
-          <div className="mb-6 flex flex-wrap items-center justify-center gap-3 text-[11px] font-semibold uppercase tracking-[0.24em] text-cyan-100/80">
-            <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 backdrop-blur-sm stagger-1">Secure setup</span>
-            <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 backdrop-blur-sm stagger-2">Profile ready</span>
-            <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 backdrop-blur-sm stagger-3">Routing you forward</span>
-          </div>
-
-          
-          {/* Animated checkmark circle */}
-          <div className="relative mb-8 w-[140px] h-[140px] icon-entrance">
-            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-[var(--accent)] to-[#00c5a4] shadow-[0_0_60px_rgba(14,102,255,0.5),0_0_100px_rgba(0,197,164,0.3)] animate-circle-scale" />
-            <svg
-              className="absolute inset-0 w-full h-full p-[30%]"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="white"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              strokeLinejoin="round">
-              <path className="animate-draw-checkmark [stroke-dasharray:24] [stroke-dashoffset:24]" d="M20 6L9 17l-5-5" />
-            </svg>
-          </div>
-
-
-          {/* Success message */}
-          <h1 className="text-5xl font-bold text-white mb-4 text-center animate-fade-in-up" style={{ opacity: 0, animationDelay: '0.5s' }}>
-            Account Created! 🎉
-          </h1>
-
-
-          <p className="text-lg sm:text-xl text-cyan-100/85 text-center mb-10 max-w-md leading-relaxed"
-            style={{
-              animation: 'fade-in-up 0.6s ease-out 0.7s forwards',
-              opacity: 0
-            }}>
-            Your journey begins now. Redirecting to setup...
-          </p>
-
-          {/* Animated progress indicator */}
-          <div className="w-64 mb-12">
-            <div className="mb-3 flex items-center justify-between text-[11px] font-semibold uppercase tracking-[0.22em] text-cyan-100/60">
-              <span>Creating workspace</span>
-              <span>100%</span>
+              <div className={`signup-pulse-ring ${successStage === "verify" || successStage === "success" ? "is-active" : ""}`} />
             </div>
-            <div style={{
-              height: '6px',
-              background: 'linear-gradient(90deg, rgba(14, 102, 255, 0.18), rgba(0, 197, 164, 0.18))',
-              borderRadius: '999px',
-              overflow: 'hidden'
-            }}>
-              <div style={{
-                height: '100%',
-                background: 'linear-gradient(90deg, #0e66ff, #00c5a4)',
-                animation: 'progress-bar 2.5s ease-in-out forwards',
-                borderRadius: '999px',
-                boxShadow: '0 0 24px rgba(14, 102, 255, 0.6), 0 0 36px rgba(0, 197, 164, 0.25)'
-              }} />
-            </div>
-          </div>
 
-          {/* Animated status text */}
-          <div className="flex items-center gap-3"
-            style={{
-              animation: 'fade-in 0.6s ease-out 0.9s forwards',
-              opacity: 0
-            }}>
-            <div className="flex gap-2">
-              {[0, 1, 2].map((i) => (
-                <div
-                  key={i}
-                  style={{
-                    width: '8px',
-                    height: '8px',
-                    borderRadius: '50%',
-                    background: '#00c5a4',
-                    animation: 'pulse-dot 1.5s ease-in-out infinite',
-                    animationDelay: `${i * 0.3}s`,
-                    boxShadow: '0 0 8px rgba(0, 197, 164, 0.6)'
-                  }}
-                />
-              ))}
+            <div className={`signup-success-panel ${successStage === "success" ? "is-visible" : ""}`}>
+              <div className="signup-success-card">
+                <div className="signup-success-tick">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M20 6L9 17l-5-5" />
+                  </svg>
+                </div>
+                <h1>Account Created Successfully</h1>
+                <p>Your secure workspace is live. Redirecting to setup...</p>
+              </div>
             </div>
-            <span className="text-sm text-muted font-medium">Setting up account...</span>
           </div>
         </div>
 
@@ -238,6 +195,222 @@ export function SignupForm() {
               opacity: 0.4;
               transform: scale(0.8);
             }
+          }
+
+          @keyframes ui-zoom {
+            0% { transform: scale(1) translateY(0); opacity: 1; }
+            100% { transform: scale(0.5) translateY(-28px); opacity: 0.1; }
+          }
+
+          @keyframes network-drift {
+            0% { opacity: 0; transform: translateY(24px) scale(0.96); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+          }
+
+          @keyframes node-pulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 197, 164, 0.0), 0 0 18px rgba(59,130,246,0.32); }
+            50% { transform: scale(1.12); box-shadow: 0 0 0 16px rgba(0, 197, 164, 0.0), 0 0 28px rgba(147,51,234,0.45); }
+          }
+
+          @keyframes particle-flow {
+            0% { opacity: 0; transform: translate3d(0,0,0) scale(0.8); }
+            15% { opacity: 1; }
+            100% { opacity: 0; transform: translate3d(220px,-120px,0) scale(1.5); }
+          }
+
+          @keyframes pulse-ring {
+            0% { transform: scale(0.65); opacity: 0.85; }
+            100% { transform: scale(1.6); opacity: 0; }
+          }
+
+          @keyframes success-pop {
+            0% { opacity: 0; transform: translateY(24px) scale(0.96); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+          }
+
+          .signup-grid {
+            background-image:
+              linear-gradient(rgba(13,39,80,0.045) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(13,39,80,0.045) 1px, transparent 1px);
+            background-size: 42px 42px;
+            mask-image: radial-gradient(circle at center, black 35%, transparent 90%);
+          }
+
+          .signup-grid-light {
+            mix-blend-mode: multiply;
+          }
+
+          .signup-vignette {
+            background: radial-gradient(circle at center, transparent 0%, rgba(255,255,255,0.05) 55%, rgba(226,235,248,0.18) 100%);
+          }
+
+          .signup-vignette-light {
+            mix-blend-mode: screen;
+          }
+
+          .signup-flow-camera,
+          .signup-network,
+          .signup-validation,
+          .signup-success-panel {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+
+          .signup-flow-camera.is-zooming .signup-flow-ui {
+            animation: ui-zoom 1.6s ease-in forwards;
+            transform-origin: center center;
+          }
+
+          .signup-flow-camera.is-network .signup-flow-ui,
+          .signup-flow-camera.is-verify .signup-flow-ui,
+          .signup-flow-camera.is-success .signup-flow-ui {
+            opacity: 0;
+          }
+
+          .signup-flow-ui {
+            width: 100%;
+            height: 100%;
+            max-width: none;
+            transition: opacity 0.6s ease;
+          }
+
+          .signup-success-card h1 {
+            color: #0f172a;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+          }
+
+          .signup-success-card p {
+            margin-top: 0.65rem;
+            color: rgba(51,65,85,0.84);
+            max-width: 50rem;
+            line-height: 1.7;
+          }
+
+          .signup-network {
+            opacity: 0;
+            transition: opacity 0.5s ease;
+          }
+
+          .signup-network.is-live {
+            opacity: 1;
+            animation: network-drift 0.8s ease-out both;
+          }
+
+          .signup-network-line {
+            position: absolute;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(59,130,246,0.95), rgba(168,85,247,0.8), transparent);
+            filter: drop-shadow(0 0 10px rgba(59,130,246,0.6));
+            opacity: 0.9;
+          }
+
+          .signup-network-line-a { width: 26vw; top: 44%; left: 11%; transform: rotate(-18deg); }
+          .signup-network-line-b { width: 31vw; top: 37%; right: 8%; transform: rotate(22deg); }
+          .signup-network-line-c { width: 27vw; top: 60%; left: 12%; transform: rotate(14deg); }
+          .signup-network-line-d { width: 25vw; top: 56%; right: 12%; transform: rotate(-14deg); }
+
+          .signup-node {
+            position: absolute;
+            border-radius: 999px;
+            background: radial-gradient(circle, #dbeafe 0%, #60a5fa 24%, #7c3aed 62%, rgba(124,58,237,0.2) 100%);
+            box-shadow: 0 0 22px rgba(59,130,246,0.5), 0 0 36px rgba(147,51,234,0.3);
+            animation: node-pulse 1.8s ease-in-out infinite;
+          }
+
+          .signup-node-core { width: 148px; height: 148px; left: 50%; top: 46%; transform: translate(-50%, -50%); }
+          .signup-node-a { width: 44px; height: 44px; left: 13%; top: 28%; animation-delay: 0.1s; }
+          .signup-node-b { width: 38px; height: 38px; right: 14%; top: 28%; animation-delay: 0.4s; }
+          .signup-node-c { width: 40px; height: 40px; left: 18%; bottom: 22%; animation-delay: 0.8s; }
+          .signup-node-d { width: 36px; height: 36px; right: 18%; bottom: 23%; animation-delay: 1.1s; }
+
+          .signup-particle {
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #e0f2fe, #38bdf8 40%, #8b5cf6 100%);
+            box-shadow: 0 0 14px rgba(56,189,248,0.8);
+            animation: particle-flow 2.6s linear infinite;
+          }
+
+          .signup-particle-1 { top: 45%; left: 18%; }
+          .signup-particle-2 { top: 36%; right: 16%; animation-delay: 0.6s; }
+          .signup-particle-3 { top: 59%; left: 24%; animation-delay: 1.1s; }
+          .signup-particle-4 { top: 55%; right: 22%; animation-delay: 1.4s; }
+
+          .signup-lock {
+            position: absolute;
+            font-size: 1.25rem;
+            filter: drop-shadow(0 0 16px rgba(96,165,250,0.7));
+            opacity: 0.85;
+          }
+
+          .signup-lock-left { left: 10%; top: 22%; }
+          .signup-lock-right { right: 10%; bottom: 20%; }
+
+          .signup-pulse-ring {
+            position: absolute;
+            left: 50%;
+            top: 46%;
+            width: 228px;
+            height: 228px;
+            margin-left: -114px;
+            margin-top: -114px;
+            border-radius: 999px;
+            border: 1px solid rgba(0,197,164,0.55);
+            opacity: 0;
+          }
+
+          .signup-pulse-ring.is-active {
+            animation: pulse-ring 1.4s ease-out infinite;
+          }
+
+          .signup-success-panel {
+            opacity: 0;
+            transform: translateY(18px) scale(0.98);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+          }
+
+          .signup-success-panel.is-visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+          }
+
+          .signup-success-card {
+            width: min(96vw, 1120px);
+            text-align: center;
+            border-radius: 42px;
+            padding: clamp(34px, 4vw, 64px) clamp(28px, 4vw, 72px);
+            background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(244,248,255,0.94));
+            border: 1px solid rgba(134,239,172,0.18);
+            box-shadow: 0 32px 120px rgba(15,23,42,0.12), 0 0 0 1px rgba(255,255,255,0.7);
+          }
+
+          .signup-success-tick {
+            width: 132px;
+            height: 132px;
+            margin: 0 auto 26px;
+            border-radius: 999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #10b981;
+            background: radial-gradient(circle, rgba(34,197,94,0.20), rgba(34,197,94,0.03));
+            box-shadow: 0 0 0 1px rgba(134,239,172,0.22), 0 0 44px rgba(34,197,94,0.18);
+            animation: success-pop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+          }
+
+          .signup-success-tick svg {
+            width: 68px;
+            height: 68px;
+          }
+
+          .signup-success-overlay .signup-flow-camera {
+            perspective: 1400px;
           }
         `}</style>
       </div>
