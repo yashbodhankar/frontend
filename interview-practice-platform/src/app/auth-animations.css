@@ -1,15 +1,4 @@
-/* Performance optimizations */
-.animate-*, 
-.success-*, 
-.icon-entrance, 
-.field-entrance,
-.input-group-animated,
-.social-btn,
-.submit-shimmer,
-.divider-animate,
-.icon-entrance {
-  will-change: transform, opacity;
-}
+
 
 /* Auth Pages Animations */
 

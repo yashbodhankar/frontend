@@ -128,6 +128,15 @@ const velocityY = useRef<number>(0);
 
   const prefersReducedMotion = useRef(false);
 
+  // Reduced motion listener
+  useEffect(() => {
+    const media = window.matchMedia('(prefers-reduced-motion: reduce)');
+    prefersReducedMotion.current = media.matches;
+    const handleChange = () => prefersReducedMotion.current = media.matches;
+    media.addEventListener('change', handleChange);
+    return () => media.removeEventListener('change', handleChange);
+  }, []);
+
   // Calculate responsive scale
   const getScale = useCallback(() => {
     const width = window.innerWidth;
@@ -267,15 +276,6 @@ const updateCursor = (currentTime: number) => {
 
 // Initial scale
     setState((prev) => ({ ...prev, scale: getScale() }));
-
-    // Reduced motion listener
-    useEffect(() => {
-      const media = window.matchMedia('(prefers-reduced-motion: reduce)');
-      prefersReducedMotion.current = media.matches;
-      const handleChange = () => prefersReducedMotion.current = media.matches;
-      media.addEventListener('change', handleChange);
-      return () => media.removeEventListener('change', handleChange);
-    }, []); 
 
     // Event listeners
     window.addEventListener("mousemove", move, { passive: true });
